@@ -2,6 +2,7 @@ package dev.mhh.multiple_errors_example;
 
 import dev.mhh.multiple_errors_example.functions.Function2;
 import dev.mhh.multiple_errors_example.functions.Function3;
+import dev.mhh.multiple_errors_example.functions.Function4;
 import dev.mhh.result.Result;
 
 import java.util.ArrayList;
@@ -50,5 +51,17 @@ public class CombineResult {
     ) {
         final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2]);
         return combine(varFunction, (Result<Object, E>) result1, (Result<Object, E>) result2, (Result<Object, E>) result3);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T1, T2, T3, T4, T, E> Result<T, List<E>> combine(
+            Function4<T1, T2, T3, T4, T> function,
+            Result<T1, E> result1,
+            Result<T2, E> result2,
+            Result<T3, E> result3,
+            Result<T4, E> result4
+    ) {
+        final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2], (T4)args[3]);
+        return combine(varFunction, (Result<Object, E>) result1, (Result<Object, E>) result2, (Result<Object, E>) result3, (Result<Object, E>) result4);
     }
 }
