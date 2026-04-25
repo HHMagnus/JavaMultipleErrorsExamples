@@ -15,6 +15,7 @@ class CombineThrowTest {
 
         assertEquals(30, combined);
     }
+
     @Test
     void combineThrow3() throws CombineThrow.AggregatedException {
         final var combined = CombineThrow.exceptionAggregator(
@@ -25,5 +26,18 @@ class CombineThrowTest {
         );
 
         assertEquals(60, combined);
+    }
+
+    @Test
+    void combineThrow4() throws CombineThrow.AggregatedException {
+        final var combined = CombineThrow.exceptionAggregator(
+                (t1, t2, t3, t4) -> t1 + t2 + t3 + t4,
+                () -> 10L,
+                () -> 20L,
+                () -> 30L,
+                () -> 40L
+        );
+
+        assertEquals(100, combined);
     }
 }
