@@ -1,9 +1,6 @@
 package dev.mhh.multiple_errors_example;
 
-import dev.mhh.multiple_errors_example.functions.Function2;
-import dev.mhh.multiple_errors_example.functions.Function3;
-import dev.mhh.multiple_errors_example.functions.Function4;
-import dev.mhh.multiple_errors_example.functions.Function5;
+import dev.mhh.multiple_errors_example.functions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +83,19 @@ public class CombineThrow {
     ) throws AggregatedException {
         final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2], (T4)args[3], (T5)args[4]);
         return exceptionAggregator(varFunction, (Supplier<Object>) supplier1, (Supplier<Object>) supplier2, (Supplier<Object>) supplier3, (Supplier<Object>) supplier4, (Supplier<Object>) supplier5);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T1, T2, T3, T4, T5, T6, T> T exceptionAggregator(
+            Function6<T1, T2, T3, T4, T5, T6, T> function,
+            Supplier<T1> supplier1,
+            Supplier<T2> supplier2,
+            Supplier<T3> supplier3,
+            Supplier<T4> supplier4,
+            Supplier<T5> supplier5,
+            Supplier<T6> supplier6
+    ) throws AggregatedException {
+        final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2], (T4)args[3], (T5)args[4], (T6)args[5]);
+        return exceptionAggregator(varFunction, (Supplier<Object>) supplier1, (Supplier<Object>) supplier2, (Supplier<Object>) supplier3, (Supplier<Object>) supplier4, (Supplier<Object>) supplier5, (Supplier<Object>) supplier6);
     }
 }
