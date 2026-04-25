@@ -45,4 +45,20 @@ class CombineResultTest {
         assertTrue(result.isOk());
         assertEquals(1078L, result.optionalValue().get());
     }
+
+
+    @Test
+    void testCombineResult5() {
+        final var result = CombineResult.combine(
+                (t1, t2, t3, t4, t5) -> t1 + t2 + t3 + t4 + t5,
+                Result.ok(123L),
+                Result.ok(321L),
+                Result.ok(111L),
+                Result.ok(523L),
+                Result.ok(963)
+        );
+
+        assertTrue(result.isOk());
+        assertEquals(2041L, result.optionalValue().get());
+    }
 }
