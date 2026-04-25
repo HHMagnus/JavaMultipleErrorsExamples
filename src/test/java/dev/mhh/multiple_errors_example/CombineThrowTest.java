@@ -3,6 +3,7 @@ package dev.mhh.multiple_errors_example;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CombineThrowTest {
     @Test
@@ -14,6 +15,32 @@ class CombineThrowTest {
         );
 
         assertEquals(30, combined);
+    }
+
+    @Test
+    void combineThrowFailedSingle() {
+        final var thrown = assertThrows(CombineThrow.AggregatedException.class, () -> CombineThrow.exceptionAggregator(
+                Long::sum,
+                () -> 10L,
+                () -> { throw new IllegalArgumentException("test"); }
+        ));
+
+        assertEquals(1, thrown.getSuppressed().length);
+        assertEquals("test", thrown.getSuppressed()[0].getMessage());
+    }
+
+    @Test
+    void combineThrowFailedList() {
+        final var thrown = assertThrows(CombineThrow.AggregatedException.class, () -> CombineThrow.exceptionAggregator(
+                (Long t1, Long t2, Long t3) -> t1 + t2 + t3,
+                () -> 10L,
+                () -> { throw new IllegalArgumentException("test"); },
+                () -> { throw new IllegalArgumentException("test"); }
+        ));
+
+        assertEquals(2, thrown.getSuppressed().length);
+        assertEquals("test", thrown.getSuppressed()[0].getMessage());
+        assertEquals("test", thrown.getSuppressed()[1].getMessage());
     }
 
     @Test
