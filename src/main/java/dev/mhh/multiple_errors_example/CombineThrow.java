@@ -4,7 +4,6 @@ import dev.mhh.multiple_errors_example.functions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class CombineThrow {
