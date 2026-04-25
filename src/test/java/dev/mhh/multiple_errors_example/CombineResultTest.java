@@ -3,6 +3,8 @@ package dev.mhh.multiple_errors_example;
 import dev.mhh.result.Result;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,6 +19,31 @@ class CombineResultTest {
 
         assertTrue(result.isOk());
         assertEquals(444L, result.optionalValue().get());
+    }
+
+    @Test
+    void testCombineResultFailedSingle() {
+        final var result = CombineResult.combine(
+                Long::sum,
+                Result.ok(123L),
+                Result.err("test123")
+        );
+
+        assertTrue(result.isError());
+        assertEquals(List.of("test123"), result.error().get());
+    }
+
+    @Test
+    void testCombineResultFailedList() {
+        final var result = CombineResult.combine(
+                (t1, t2, t3) -> t1 + t2 + t3,
+                Result.ok(123L),
+                Result.<Long, String>err("test123"),
+                Result.<Long, String>err("123test")
+        );
+
+        assertTrue(result.isError());
+        assertEquals(List.of("test123", "123test"), result.error().get());
     }
 
     @Test
