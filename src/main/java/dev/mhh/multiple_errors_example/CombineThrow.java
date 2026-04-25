@@ -113,4 +113,20 @@ public class CombineThrow {
         final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2], (T4)args[3], (T5)args[4], (T6)args[5], (T7)args[6]);
         return exceptionAggregator(varFunction, (Supplier<Object>) supplier1, (Supplier<Object>) supplier2, (Supplier<Object>) supplier3, (Supplier<Object>) supplier4, (Supplier<Object>) supplier5, (Supplier<Object>) supplier6, (Supplier<Object>) supplier7);
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T1, T2, T3, T4, T5, T6, T7, T8, T> T exceptionAggregator(
+            Function8<T1, T2, T3, T4, T5, T6, T7, T8, T> function,
+            Supplier<T1> supplier1,
+            Supplier<T2> supplier2,
+            Supplier<T3> supplier3,
+            Supplier<T4> supplier4,
+            Supplier<T5> supplier5,
+            Supplier<T6> supplier6,
+            Supplier<T7> supplier7,
+            Supplier<T8> supplier8
+    ) throws AggregatedException {
+        final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2], (T4)args[3], (T5)args[4], (T6)args[5], (T7)args[6], (T8)args[7]);
+        return exceptionAggregator(varFunction, (Supplier<Object>) supplier1, (Supplier<Object>) supplier2, (Supplier<Object>) supplier3, (Supplier<Object>) supplier4, (Supplier<Object>) supplier5, (Supplier<Object>) supplier6, (Supplier<Object>) supplier7, (Supplier<Object>) supplier8);
+    }
 }
