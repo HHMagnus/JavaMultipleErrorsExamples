@@ -1,5 +1,8 @@
 package dev.mhh.multiple_errors_example;
 
+import dev.mhh.multiple_errors_example.functions.Function2;
+import dev.mhh.multiple_errors_example.functions.Function3;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -37,14 +40,24 @@ public class CombineThrow {
         return function.apply(args);
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T1, T2, T> T exceptionAggregator(
-            BiFunction<T1, T2, T> function,
+            Function2<T1, T2, T> function,
             Supplier<T1> supplier1,
             Supplier<T2> supplier2
     ) throws AggregatedException {
         final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1]);
         return exceptionAggregator(varFunction, (Supplier<Object>) supplier1, (Supplier<Object>) supplier2);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T1, T2, T3, T> T exceptionAggregator(
+            Function3<T1, T2, T3, T> function,
+            Supplier<T1> supplier1,
+            Supplier<T2> supplier2,
+            Supplier<T3> supplier3
+    ) throws AggregatedException {
+        final VarFunction<T> varFunction = (args) -> function.apply((T1)args[0], (T2)args[1], (T3)args[2]);
+        return exceptionAggregator(varFunction, (Supplier<Object>) supplier1, (Supplier<Object>) supplier2, (Supplier<Object>) supplier3);
     }
 }
